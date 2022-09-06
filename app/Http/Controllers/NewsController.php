@@ -179,4 +179,6 @@ class NewsController extends Controller
         $post -> delete();
         return redirect('/news')->with('success', 'The article was succesfully deleted!');
     }
+    // Commit
+    
 }
