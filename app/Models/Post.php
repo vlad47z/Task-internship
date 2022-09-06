@@ -18,7 +18,7 @@ class Post extends Model
 
     protected $table = 'posts';
     public $primary_key = 'id';
-    public $tamestamps = true;
+    public $timestamps = true;
 
     protected $fillable = [
         'id',
@@ -29,17 +29,21 @@ class Post extends Model
         'meta_description',
         'cover_image',
         'thumbnail',
+        'seo_title',
+        'created_at',
     ];
+
 
     public function user() {
         return $this->belongsTo('App\Models\User');
+        
     }
 
     public function sluggable(): array
     {
         return [
             'slug' => [
-                'source' => 'seo_title'
+                'source' => 'seo_title',
             ]
         ];
     }

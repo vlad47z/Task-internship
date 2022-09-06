@@ -68,17 +68,17 @@
                        <div class="row">
                             <div class="col-md-4">
                                 <a href="{{ route('login.facebook') }}" type="submit" class="btn btn-primary facebook-button" style="width: 200px;">
-                                    {{ __('Connect with Facebook') }}
+                                    <i class="fab fa-facebook-square"> </i> {{ __('Connect with Facebook') }} 
                                 </a>
                             </div><br>
                             <div class="col-md-4">
                                 <a href="{{ route('login.google') }}" type="submit" class="btn btn-danger" style="width: 200px;">
-                                    {{ __('Connect with Google') }}
+                                <i class='fab fa-google fa-md'></i> {{ __('Connect with Google') }}
                                 </a>
                             </div><br>
                             <div class="col-md-4">
                                 <a href="/register" type="submit" class="btn btn-success" style="width: 200px;">
-                                    {{ __('Create an account') }}
+                                   <i class="fas fa-bolt"></i> {{ __('Create an account') }}
                                 </a>
                             </div><br>
                        </div>

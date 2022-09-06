@@ -54,7 +54,7 @@
 							<li><a href="/news">News</a></li>
 
 							@else
-							<li><a href="/home">Home panel</a></li>	
+							<li><a href="/home">Article menu</a></li>	
 							<li><a href="/users">My profile</a></li>	
 							<li><a href="/dashboard">Dashboard</a></li>
 							<li><a href="/news">News</a></li>

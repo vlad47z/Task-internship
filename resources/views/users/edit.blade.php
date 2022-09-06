@@ -12,7 +12,7 @@
                 @method('PUT')
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" name="name" id="name" value=" {{$user->name}} " maxlength="25">
+                    <input type="text" class="form-control" name="name" id="name" value="{{$user->name}}" maxlength="25">
                 </div>
                 <button type="submit" class="btn btn-danger">Update profile</button>
             </form>

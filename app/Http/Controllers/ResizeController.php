@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image as Image;
 use Illuminate\Support\Facades\DB;
 use App\Models\Size;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\App;
 
 class ResizeController extends Controller
@@ -47,8 +48,6 @@ class ResizeController extends Controller
             'height_list' => $request->input('heightlist'),
             'updated_at' => now(),
         ]);
-
-
         return redirect('/users')->with('success', 'Changes related to dimensions were changed succesfully!');
     }
 
@@ -56,17 +55,17 @@ class ResizeController extends Controller
     { 
         $size=Size::where('id', 1)->first();
         $this->validate($request, [
-            'file' => 'required|image|mimes:jpg,jpeg,png,gif,svg|max:5120',
+            'file' => 'required|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
         ]);
         $image = $request->file('file');
         $input['file'] = time().'.'.$image->getClientOriginalExtension();
         
         $destinationPath = public_path('/thumbnail');
         $imgFile = Image::make($image->getRealPath());
-        $imgFile->resize($size->width_list, $size->height_list, function ($constraint) {
-		    $constraint->aspectRatio();
-		})->save($destinationPath.'/'.$input['file']);
-        $destinationPath = public_path('/uploads');
+        $imgFile->resize($size->width_list, $size->height_list,  function ($constraint) {
+            $constraint->aspectRatio();
+        })->save($destinationPath.'/'.$input['file']);
+        $destinationPath = public_path('/thumbs');
         $image->move($destinationPath, $input['file']);
         return back()->with('success','Image has successfully been uploaded.')->with('fileName', $input['file']);
     }

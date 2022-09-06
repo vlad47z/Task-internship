@@ -7,6 +7,8 @@
 
 <!-- //load stand-alone-button -->
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 
     <div class="container"><br><br><br>
         <h1>Creează un articol</h1>
@@ -35,14 +37,15 @@
         <span class="input-group-btn">
             <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-danger text-white"><i class="fas fa-image"></i> Choose a picture</a>
         </span>
-            <input id="thumbnail" class="form-control" type="text"  name="filepath" readonly>
+            <input id="thumbnail" class="ml-2 form-control-plaintext" type="text" name="filepath" readonly>
         </div>
-        <img id="holder" style="margin-top:15px;max-height:100px;">
+        <img name="holder"  style="margin-top:15px;max-height:100px;">
 
         <script>
             var route_prefix = "{{route('unisharp.lfm.show')}}";
             $('#lfm').filemanager('image', {prefix: route_prefix});
         </script>
+        
 
         <br><label class="mt-4 mb-4"><h4>SEO attributes section:</h4></label>
         <!-- SEO Section -->
@@ -57,7 +60,7 @@
         <div class="form-group">
             {{Form::label('metabody', 'Meta description:')}}
             {{Form::textarea('metabody', '', ['id'=>'metabody', 'rows' => '2', 'class' => 'form-control', 'placeholder' =>'. . .'])}}
-            <i class="fas fa-comment"> Meta description for your article</i>
+            <i class="fas fa-comment">Meta description for your article</i>
         </div>
 
 
@@ -67,5 +70,6 @@
             {{Form::close()}} 
         </div>
     </div>
+    
 @endsection
 

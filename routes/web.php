@@ -37,7 +37,7 @@ Route::resource('news', 'App\Http\Controllers\NewsController')->middleware('veri
 Route::resource('news', 'App\Http\Controllers\NewsController')->except(['show']);
 Route::get('news/{slug}', 'App\Http\Controllers\NewsController@showWithSlug')->middleware('verified');
 Route::get('news/create', 'App\Http\Controllers\NewsController@create')->middleware('verified', 'admin');
-Route::get('news/{slug}/edit', 'App\Http\Controllers\NewsController@edit')->middleware('admin');
+Route::get('news/{slug}/edit', 'App\Http\Controllers\NewsController@edit')->middleware('admin', 'verified');
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
@@ -53,12 +53,12 @@ Route::get('/login/facebook/callback', 'App\Http\Controllers\FaceBookController@
 
 //Settings menu
 Route::get('users', 'App\Http\Controllers\UsersController@index')->name('users.index')->middleware('verified');
+Route::get('users/profile', 'App\Http\Controllers\UsersController@edit')->name('users.edit-profile')->middleware('auth');
+Route::put('users/profile', 'App\Http\Controllers\UsersController@update')->name('users.update-profile');
+Route::get('users/change-password', 'App\Http\Controllers\UsersController@changePassword')->name('change-password');
+Route::post('users/change-password', 'App\Http\Controllers\UsersController@updatePassword')->name('update-password');
 Route::resource('users/panel', 'App\Http\Controllers\ResizeController')->middleware('admin');
 Route::resource('users/panel', 'App\Http\Controllers\ResizeController')->except('show');
 Route::get('users/panel', 'App\Http\Controllers\ResizeController@indexSize')->name('sizepanel')->middleware('admin');
 Route::get('/file-resize', 'App\Http\Controllers\ResizeController@index');
 Route::post('/resize-file', 'App\Http\Controllers\ResizeController@resizeImage')->name('resizeImage');
-Route::get('users/profile', 'App\Http\Controllers\UsersController@edit')->name('users.edit-profile')->middleware('auth');
-Route::put('users/profile', 'App\Http\Controllers\UsersController@update')->name('users.update-profile');
-Route::get('users/change-password', 'App\Http\Controllers\UsersController@changePassword')->name('change-password');
-Route::post('users/change-password', 'App\Http\Controllers\UsersController@updatePassword')->name('update-password');

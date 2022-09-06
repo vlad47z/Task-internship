@@ -16,23 +16,19 @@
                            
                             <p class="subtitle">Article Management App</p>
                             @if(auth()->check() && auth()->user()->is_admin == 1)
-                            <h2 class="text-white">Welcome {!! auth()->user()->name  !!}, you are administrator!</h2>
+                            <h2 class="text-white">Welcome {!! auth()->user()->name  !!}, you are  administrator!</h2>
                             <div class="hero-btns">
                                 <a href="/news" class="bordered-btn">Read news</a>
                                 <a href="/news/create" class="boxed-btn" >Create news</a>
                             </div>
                             @else
-                            <h2 class="text-white">Welcome {!! auth()->user()->name  !!}. Ready to read some news?</h1>
+                            <h2 class="text-white">Welcome {!!auth()->user()->name!!}. Ready to read some news?</h1>
                             <div class="hero-btns">
                                 <a href="/news" class="bordered-btn">Read news</a>
                             </div>
 
                             @endif
-                            
                         @endguest    
-                         
-                        
-                            
                         </div>
                     </div>
                 </div>

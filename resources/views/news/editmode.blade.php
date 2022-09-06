@@ -8,11 +8,11 @@
     <!-- //load stand-alone-button -->
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     
-    <div class="container"><br>
+<div class="container"><br>
       <h1 class="mt-4">Edit the article:</h1>
       
       {{Form::open(['action' => ['App\Http\Controllers\NewsController@update', $post->id], 'method' => 'POST'])}}
-      @csrfs
+      @csrf
       <!-- Article title div -->
       <div class="form-group mt-4">
           {{Form::label('title', 'Title')}}
@@ -33,7 +33,7 @@
             <i class="fas fa-image"></i> Choose a picture
             </a>
         </span>
-            <input id="thumbnail" class="form-control" type="text" name="filepath" value="{{ $post->cover_image }}" readonly>
+            <input id="thumbnail" class="form-control" type="text" name="filepath" value="{{$post->cover_image}}" readonly>
         </div>
         <img id="holder" style="margin-top:15px;max-height:100px;">
 
@@ -45,16 +45,16 @@
 
       <br><label><h4>SEO attributes section:</h4></label>
       
-      <div class="form-group">
+        <div class="form-group">
            <label>SEO title:</label>
            <input type="text" class="form-control" name="seo_title" id="seo_title_edit"  value="{!! $post->seo_title  !!}" required>
             <i class="fas fa-comment"> Create a short and strict SEO title for your article</i>
         </div>
       
-      <div class="form-group">
+        <div class="form-group">
             {{Form::label('metabody', 'Meta description:')}}
             {{Form::textarea('metabody', $post->meta_description, ['id'=>'metabodyedit', 'rows' => '2', 'class' => 'form-control', 'placeholder' =>'. . .'])}}
-            <i class="fas fa-comment"> Meta description for your article</i>
+            <i class="fas fa-comment">Meta description for your article</i>
         </div>
       
       

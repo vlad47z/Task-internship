@@ -76,8 +76,9 @@
 		<script src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
-<!-- //load stand-alone-button -->
+		<!-- //load stand-alone-button -->
     	<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+		
 		<!-- jquery -->
 		<script src="{{ asset('assets/js/jquery-1.11.3.min.js')}}"></script>
 

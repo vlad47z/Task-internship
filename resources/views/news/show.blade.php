@@ -2,10 +2,8 @@
 @section('title', $post[0]->title)
 @section('meta_description', $post[0]->meta_description)
 
-<!--your post content -->
-
+<!-- single article section -->
 @section('content')
-
 <div class="mt-150 mb-150">
 		<div class="container">
 			<div class="row">
@@ -22,11 +20,12 @@
 								<a href="/news/{{$post[0]->slug}}/edit" style="width: 167px" class="ml-2 btn btn-outline-success">Edit article</a>
 								@endif
 							</div><br>
-							<div class="single-artcile-bg"><img width="750px" height="450px" src="{{$post[0] -> cover_image}}" /></div>
+							<div class="single-artcile-bg"><img width="750px" height="450px" src="{{ $posts[0]->cover_image}}"/></div>
 							<p class="blog-meta">
 								<span class="author"><i class="fas fa-user"></i> {{$post[0]->user->name}}</span>
 								<span class="date"><i class="fas fa-calendar"></i> {{$post[0]->created_at}}</span>
-								<span class="date"><i class="fas fa-bolt"></i> {{$post[0]->slug}}</span>
+								<span class="date"><i class="fas fa-book-reader"></i>≈ {!! Str::limit(((str_word_count($post[0]->body)%160 / ((160/60)))/10), 4) !!} minutes for reading</span>
+								<span class="date"><i class="fas fa-edit"></i> {{ str_word_count($post[0]->body) }} words</span>
 							</p>
 							<h2>{{$post[0]->title}}</h2><hr>
 							<p>{!! preg_replace("/&#?[a-z0-9]{2,8};/i", " ", $post[0]->meta_description) !!}</p><hr>
@@ -41,35 +40,31 @@
 							<h4>Recent Posts</h4>
 							<ul>
 								@foreach ($posts as $post)
-									<li><a href="/news/{{$post->slug}}"> {{$post->title}} </a></li>
+									<li><a href="/news/{{$post->slug}}">{{$post->title}}</a></li>
 								@endforeach		
 							</ul>
 						</div>
-
 						<div class="archive-posts">
 							<h4>Archive Posts</h4>
 							<ul>
 								<li><a href="#"> ... </a></li>	
 							</ul>
 						</div>
-
 						<div class="tag-section">
-							<h4>Tags</h4>
+							<h4>Article tags</h4>
 							<ul>
-								<li><a href=" ">IT</a></li>
-								<li><a href=" ">Code</a></li>
-								<li><a href=" ">Laravel</a></li>
-								<li><a href=" ">Articles</a></li>
-								<li><a href=" ">Latest News</a></li>
-								<li><a href=" ">News</a></li>
+								<li><a href=" "> ... </a></li>
+								<li><a href=" "> ... </a></li>
+								<li><a href=" "> ... </a></li>
+								<li><a href=" "> ... </a></li>
+								<li><a href=" "> aaa </a></li>
 							</ul>
+						 	
 						</div>
-
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- end single article section -->
-
 @endsection

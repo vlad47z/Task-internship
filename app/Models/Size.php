@@ -10,7 +10,7 @@ class Size extends Model
     use HasFactory;
     protected $table = 'sizes';
     public $primary_key = 'id';
-    public $tamestamps = true;
+    public $timestamps = true;
 
     protected $fillable = [
         'width_single',
@@ -20,3 +20,5 @@ class Size extends Model
         'updated_at',
     ];
 }
+
+

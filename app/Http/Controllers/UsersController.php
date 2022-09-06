@@ -26,13 +26,8 @@ class UsersController extends Controller
         $user->update([
             'name' => $request->name,
         ]);
-
-
         return back()->with('success', 'Datele profilului au fost modificate cu succes!');
     }
-
-    
-    
     
     //Profile edit - change password
     public function changePassword() {
@@ -58,7 +53,6 @@ class UsersController extends Controller
             User::whereId(auth()->user()->id)->update([
                 'password' => Hash::make($request->new_password)
             ]);
-    
             return back()->with("status", "Parola utilizatorului a fost modificata cu succes!");
     }
 }
