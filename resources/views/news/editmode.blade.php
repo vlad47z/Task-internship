@@ -8,7 +8,7 @@
     <!-- //load stand-alone-button -->
     <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
     
-<div class="container"><br>
+<div class="container mb-2"><br>
       <h1 class="mt-4">Edit the article:</h1>
       
       {{Form::open(['action' => ['App\Http\Controllers\NewsController@update', $post->id], 'method' => 'POST'])}}
@@ -37,7 +37,6 @@
         </div>
         <img id="holder" style="margin-top:15px;max-height:100px;">
 
-
         <script>
             var route_prefix = "{{route('unisharp.lfm.show')}}";
             $('#lfm').filemanager('image', {prefix: route_prefix});
@@ -54,7 +53,7 @@
         <div class="form-group">
             {{Form::label('metabody', 'Meta description:')}}
             {{Form::textarea('metabody', $post->meta_description, ['id'=>'metabodyedit', 'rows' => '2', 'class' => 'form-control', 'placeholder' =>'. . .'])}}
-            <i class="fas fa-comment">Meta description for your article</i>
+            <i class="fas fa-comment"> Meta description for your article</i>
         </div>
       
       
@@ -62,10 +61,8 @@
     <div class="post_button">
         <br>{{Form::hidden('_method', 'PUT')}}
         {{Form::submit('Save changes', ['class'=>'btn btn-success pl-5 pr-5'])}}
-
     {{Form::close()}}
     <a href="/home" style="width: 172px;" class="btn btn-danger">Cancel edit</a>
     </div>
-</div><br><br>
-
+</div>
 @endsection

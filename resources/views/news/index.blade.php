@@ -34,16 +34,20 @@
                     <span style="color: black;" class="date"><i class="fas fa-calendar"></i>{{ date("D, d M | Y", strtotime($post->created_at)) }}</span>
                     </p>
                     <p style="color: black;" class="excerpt">{!! preg_replace("/&#?[a-z0-9]{2,8};/i", " ", strip_tags(Str::limit($post->body, 40))) !!}</p>
-                    <a style="color: black;" href="/news/{{$post->slug}}" class="read-more-btn">read more<i class="fas fa-angle-right"></i></a>
+                    <a style="color: black;" href="/news/{{$post->slug}}" class="read-more-btn">keep reading <i class="fas fa-angle-right"></i></a>
                 </div>
             </div>
         </div>
         @endforeach
         </div>
-        {{$posts->links('include.my-paginate')}} 
+        
+        <div class="float-right">
+            {{$posts->links('include.my-paginate')}} 
         @else
-        <p><strong>(!)Niciun articol postat încă</strong></p>
+            <p><strong>(!)Niciun articol postat încă</strong></p>
         @endif
+        </div>
+        
     </div>
 </div>
 @endsection

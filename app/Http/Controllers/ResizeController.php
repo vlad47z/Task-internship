@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Size;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\App;
+use LogicException;
 
 class ResizeController extends Controller
 {
@@ -51,7 +52,7 @@ class ResizeController extends Controller
         return redirect('/users')->with('success', 'Changes related to dimensions were changed succesfully!');
     }
 
-    public function resizeImage(Request $request)
+    public function resizeImage(Request $request, $pin)
     { 
         $size=Size::where('id', 1)->first();
         $this->validate($request, [
@@ -67,6 +68,8 @@ class ResizeController extends Controller
         })->save($destinationPath.'/'.$input['file']);
         $destinationPath = public_path('/thumbs');
         $image->move($destinationPath, $input['file']);
+        
         return back()->with('success','Image has successfully been uploaded.')->with('fileName', $input['file']);
+
     }
 }

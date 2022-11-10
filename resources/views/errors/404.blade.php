@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'Task | Not found')
 @section('content')
 <!-- breadcrumb-section -->
 <div class="breadcrumb-section breadcrumb-bg">

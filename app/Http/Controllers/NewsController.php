@@ -20,6 +20,7 @@ use App\Http\Controllers\ResizeController;
 use Symfony\Component\Console\Input\Input;
 use function GuzzleHttp\Promise\all;
 use Illuminate\Support\Carbon;
+use Symfony\Component\Mailer\Transport\Smtp\SmtpTransport;
 
 class NewsController extends Controller 
 {
@@ -32,7 +33,7 @@ class NewsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(6);
+        $posts = Post::orderBy('created_at', 'desc')->paginate(3);
         
         return view('news.index', compact('posts'));
 
@@ -52,7 +53,7 @@ class NewsController extends Controller
      */
   
     public function store(Request $request) {
-
+        $post=Post::all();
         $this->validate($request, [
             'title' => 'required|max:100|min:10',
             'body' => 'required|max:50000|min:500',
@@ -60,8 +61,21 @@ class NewsController extends Controller
             'metabody' => 'required|max:300|min:20',
             'filepath' => 'required',
         ]);
-        $input = $request->all();
-        $insert = [
+
+        // $insert = [
+        //     'slug' => SlugService::createSlug(Post::class, 'slug', $request->seo_title),
+        //     'title' => $request->input('title'),
+        //     'meta_description' => $request->input('metabody'),
+        //     'user_id' => Auth::id(),
+        //     'seo_title' => $request->input('seo_title'),
+        //     'body' => $request->input('body'),
+        //     // 'cover_image' => trim($request->input('filepath'), env('APP_URL')),
+        //     'cover_image' => $request->input('filepath'),
+        //     'created_at' => now(),
+        //     'thumbnail' => str_replace(env('APP_URL') . "/storage/photos/4/", " ", $request->input('filepath')),
+        // ];
+        // Post::insertGetId($insert);
+        Post::updateOrCreate([
             'slug' => SlugService::createSlug(Post::class, 'slug', $request->seo_title),
             'title' => $request->input('title'),
             'meta_description' => $request->input('metabody'),
@@ -71,9 +85,8 @@ class NewsController extends Controller
             // 'cover_image' => trim($request->input('filepath'), env('APP_URL')),
             'cover_image' => $request->input('filepath'),
             'created_at' => now(),
-            'thumbnail' => str_replace("http://a911-217-26-164-216.eu.ngrok.io/storage/photos/4/", " ", $request->input('filepath')),
-        ];
-        Post::insertGetId($insert);
+            'thumbnail' => str_replace(env('APP_URL') . "/storage/photos/4/", " ", $request->input('filepath')),
+        ]);
         
         // $post = new Post();
         // $post->user_id = Auth::id();
@@ -83,10 +96,10 @@ class NewsController extends Controller
         // $post->body = $request->input('body');
         // $post->meta_description = $request->input('metabody');
         // $post->cover_image = trim($request->input('filepath'), env('APP_URL'));
-        // $post->save();       
-        return redirect('/news')->with('success', 'Your article was succesfully created!');
+        // $post->save();   
+        return redirect('/news')->with('success', 'The article was succesfully created!');
     }
-//  
+
 
     /**
      * Display the specified resource.
@@ -95,8 +108,9 @@ class NewsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request,$slug) {
-        $post=Post::all();
-        $post = Post::where('slug',$slug)->get();    
+        
+        $post = Post::all();
+        $post = Post::where('slug', $slug)->get();    
         $posts = Post::orderBy('created_at', 'desc')->limit('5')->get();
 
         // $size=Size::where('id', 1)->first();
@@ -104,7 +118,6 @@ class NewsController extends Controller
         // $posts->resizeToWidth($size[0]->width_single);
         // $posts->resizeToHeight($size[0]->height_single);
         // $posts->save(public_path('uploads/resized_' . $post[0]->cover_image));
-
         return view ('news.show', compact('post', 'posts'));
     }
 
@@ -122,7 +135,8 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($slug) {
+    public function edit(Request $request, $slug) {
+        
         $post = Post::where('slug', $slug)->first();
         if(auth()->check() && auth()->user()->is_admin != 1) {
             return redirect('/news')->with('error', '(!) Error. You are not the administrator or the author of that article.');
@@ -145,24 +159,23 @@ class NewsController extends Controller
             'seo_title' => 'required|max:150|min:10',
             'metabody' => 'required|max:300|min:20',
         ]);
-        
+       
         $input = $request->all();
         $post = Post::find($slug);
-       
         $post->title = $request -> input('title');
         $post->slug = SlugService::createSlug(Post::class, 'slug', $request->seo_title);
         $post->meta_description = $request->input('metabody');
         $post->cover_image = $request->input('filepath');
+     
         $post->body = $request->input('body');
         $post->seo_title = $request->input('seo_title');
         $post->updated_at = now();
-        $post->thumbnail = str_replace("http://127.0.0.1:8000/storage/photos/4/", "", $request->input('filepath'));
+        $post->thumbnail = str_replace("http://127.0.0.1:8000/storage/photos/4/", " ", $request->input('filepath'));
         // $post->thumbnail = basename($post->cover_image, ".php");
         $post -> save();
-        
+
         return redirect('/news')->with('success', 'Article was succesfully modified!');
     }
-    
 
     /**
      * Remove the specified resource from storage.
@@ -172,13 +185,12 @@ class NewsController extends Controller
      */
     public function destroy($slug)
     {
+      
         $post = Post::where('slug', $slug)->first();
         if(auth()->check() && auth()->user()->is_admin != 1) {
             return redirect('/news')->with('error', 'Neautorizat!');
         }
         $post -> delete();
         return redirect('/news')->with('success', 'The article was succesfully deleted!');
-    }
-    // Commit
-    
+    }    
 }

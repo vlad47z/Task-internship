@@ -29,13 +29,13 @@
         <!-- Set a cover image div -->
         <!-- <br><label><h4>Set a cover image for this article:</h4></label>
         <div class="form-group">
-            {{Form::file('cover_image')}}
+            {{-- {{Form::file('cover_image')}} --}}
         </div> -->
 
         <br><label><h4>Set a thumbnail image for this article:</h4></label>
         <div class="input-group">
         <span class="input-group-btn">
-            <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-danger text-white"><i class="fas fa-image"></i> Choose a picture</a>
+            <a id="lfm" data-toggle="tooltip" data-placement="bottom" title="Choose thumbnail for your article" data-input="thumbnail" data-preview="holder" class="btn btn-danger text-white"><i class="fas fa-image"></i> Choose a picture</a>
         </span>
             <input id="thumbnail" class="ml-2 form-control-plaintext" type="text" name="filepath" readonly>
         </div>
@@ -53,23 +53,23 @@
          <!-- Slug URL -->
         <div class="form-group">
             {{Form::label('seo_title', 'SEO title:')}}
-            {{Form::text('seo_title', null, array('id'=>'seo_title', 'class' => 'form-control', 'placeholder'=>'. . .'))}}
+            {{Form::text('seo_title', null, array('id'=>'seo_title', 'class' => 'form-control', 'placeholder'=>'. . .', 'data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Create a SEO friendly title for your article'))}}
             <i class="fas fa-comment"> Create a short and strict SEO title for your article</i>
         </div>
 
         <div class="form-group">
             {{Form::label('metabody', 'Meta description:')}}
-            {{Form::textarea('metabody', '', ['id'=>'metabody', 'rows' => '2', 'class' => 'form-control', 'placeholder' =>'. . .'])}}
+            {{Form::textarea('metabody', '', ['id'=>'metabody', 'rows' => '2', 'class' => 'form-control', 'placeholder' =>'. . .', 'data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Type a short description about your article'])}}
             <i class="fas fa-comment">Meta description for your article</i>
         </div>
 
+        
 
         <!-- Submit button div -->
-        <div class="post_button">
-            <br>{{Form::submit('Create article', ['class'=>'btn btn-danger pl-5 pr-5'])}}
-            {{Form::close()}} 
-        </div>
+        <div class="cursor-default post_button">
+            <br>{{Form::submit('Create article', ['class'=>'btn btn-danger pl-5 pr-5', 'data-toggle'=>'tooltip', 'data-placement'=>'top', 'title'=>'Click to create your article'])}}
+        {{Form::close()}} 
+        </div>   
     </div>
-    
 @endsection
 

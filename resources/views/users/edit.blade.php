@@ -11,8 +11,9 @@
                 @csrf
                 @method('PUT')
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" name="name" id="name" value="{{$user->name}}" maxlength="25">
+                    <label for="name">Name: </label>
+                    <input type="text" class="form-control" name="name" id="name" value="{{$user->name}}" maxlength="20">
+                    <small>At least 20 characters, in a single word</small>
                 </div>
                 <button type="submit" class="btn btn-danger">Update profile</button>
             </form>
